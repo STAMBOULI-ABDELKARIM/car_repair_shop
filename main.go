@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 
+	docs "github.com/STAMBOULI-ABDELKARIM/car_repair_shop/docs"
 	_ "github.com/lib/pq"
 
 	db "github.com/STAMBOULI-ABDELKARIM/car_repair_shop/db/sqlc"
@@ -13,6 +14,12 @@ import (
 )
 
 func main() {
+	docs.SwaggerInfo.Title = "ABDELKARIM STAMBOULI - CAR REPAIR SHOP API"
+	docs.SwaggerInfo.Description = "MANAGE CUSTOMERS FOR A CAR REPAR SHOPAPI."
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Host = "localhost:8080"
+	docs.SwaggerInfo.BasePath = "/"
+	docs.SwaggerInfo.Schemes = []string{"http"}
 	config, err := util.LoadConfig(".")
 	if err != nil {
 		log.Fatal("cannot load config:", err)
@@ -24,7 +31,6 @@ func main() {
 
 	store := db.New(conn)
 	server := api.NewServer(store)
-
 	err = server.Start(config.ServerAddress)
 
 	if err != nil {

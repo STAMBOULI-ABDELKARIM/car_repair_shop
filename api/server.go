@@ -4,6 +4,8 @@ import (
 	db "github.com/STAMBOULI-ABDELKARIM/car_repair_shop/db/sqlc"
 
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"     // swagger embed files
+	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
 )
 
 type Server struct {
@@ -20,8 +22,8 @@ func NewServer(store *db.Queries) *Server {
 	router.GET("/customers/:id", server.getCustomer)
 	router.PUT("/customers/:id", server.updateCustomer)
 	router.DELETE("/customers/:id", server.deleteCustomer)
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	router.GET("/customers", server.listCustomers)
-
 	return server
 }
 

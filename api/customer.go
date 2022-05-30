@@ -13,7 +13,24 @@ type createCustomerRequest struct {
 	FullName    string `json:"fullName" binding:"required"`
 	PhoneNumber string `json:"phoneNumber" binding:"required"`
 }
+type Response struct {
+	Message string `json:"message"`
+}
 
+// Paths Information
+
+// createCustomer godoc
+// @Summary Create new Customer
+// @Description Create new Customer
+// @Tags customer,create
+// @Accept  json
+// @Produce  json
+// @Param FullName formData string true "FullName"
+// @Param PhoneNumber formData string true "PhoneNumber"
+// @Success 200 {object} Response
+// @Failure 400 {object} Response
+// @Failure 401 {object} Response
+// @Router /customers [get]
 func (server *Server) createCustomer(ctx *gin.Context) {
 	var req createCustomerRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
