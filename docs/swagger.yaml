@@ -1,45 +1,4 @@
-definitions:
-  api.Response:
-    properties:
-      message:
-        type: string
-    type: object
 info:
   contact: {}
-paths:
-  /customers:
-    get:
-      consumes:
-      - application/json
-      description: Create new Customer
-      parameters:
-      - description: FullName
-        in: formData
-        name: FullName
-        required: true
-        type: string
-      - description: PhoneNumber
-        in: formData
-        name: PhoneNumber
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/api.Response'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/api.Response'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/api.Response'
-      summary: Create new Customer
-      tags:
-      - customer
-      - create
+paths: {}
 swagger: "2.0"

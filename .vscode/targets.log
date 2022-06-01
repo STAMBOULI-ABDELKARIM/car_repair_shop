@@ -1,12 +1,16 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+ 
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
+ 
 
-# Make data base, printed on Tue May 31 00:04:39 2022
+# Make data base, printed on Tue May 31 17:02:04 2022
 
 # Variables
 
@@ -21,7 +25,7 @@ SSH_AGENT_LAUNCHER = gnome-keyring
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-6b1463fa-6350-44f4-868e-ba4bf17db985.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-f6eeeb9e-6e7a-4ead-a4da-e8654871e1ce.sock
 # environment
 LC_NAME = ar_DZ.UTF-8
 # environment
@@ -31,6 +35,7 @@ VSCODE_CWD = /home/stam
 # environment
 WINDOWPATH = 2
 # environment
+ 
 LC_ADDRESS = ar_DZ.UTF-8
 # default
 MAKE_COMMAND := make
@@ -66,6 +71,7 @@ VSCODE_CODE_CACHE_PATH = /home/stam/.config/Code/CachedData/c3511e6c69bb39013c4a
 LANG = C
 # environment
 XAUTHORITY = /run/user/1000/gdm/Xauthority
+ 
 # default
 .LOADED := 
 # default
@@ -85,6 +91,7 @@ MFLAGS = -pqrR
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # default
+ 
 .SHELLFLAGS := -c
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
@@ -92,6 +99,7 @@ XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 +D = $(patsubst %/,%,$(dir $+))
 # environment
 XDG_SESSION_DESKTOP = ubuntu
+ 
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST := Makefile
 # automatic
@@ -100,14 +108,15 @@ MAKEFILE_LIST := Makefile
 ZSH = /home/stam/.oh-my-zsh
 # environment
 VSCODE_VERBOSE_LOGGING = true
+ 
 # environment
-VSCODE_PID = 101206
+VSCODE_PID = 6298
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/stam-X75VC:@/tmp/.ICE-unix/2245,unix/stam-X75VC:/tmp/.ICE-unix/2245
+SESSION_MANAGER = local/stam-X75VC:@/tmp/.ICE-unix/2220,unix/stam-X75VC:/tmp/.ICE-unix/2220
 # automatic
 *F = $(notdir $*)
 # environment
@@ -116,10 +125,12 @@ CHROME_DESKTOP = code-url-handler.desktop
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
+ 
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
+ 
 # environment
 GNOME_DESKTOP_SESSION_ID = this-is-deprecated
 # makefile
@@ -142,12 +153,13 @@ PATH = /home/stam/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/
 MAKEFILES := 
 # environment
 LC_MONETARY = ar_DZ.UTF-8
+ 
 # automatic
 ^F = $(notdir $^)
 # environment
 LC_TIME = ar_DZ.UTF-8
 # environment
-INVOCATION_ID = b54bb18d4c8945668cfa763c880b8e4e
+INVOCATION_ID = 20713af6b0554e4da0e07ab24c52d01d
 # environment
 VSCODE_LOG_NATIVE = false
 # environment
@@ -155,6 +167,7 @@ USERNAME = stam
 # environment
 LC_TELEPHONE = ar_DZ.UTF-8
 # automatic
+ 
 ?F = $(notdir $?)
 # environment
 XDG_CURRENT_DESKTOP = Unity
@@ -177,7 +190,7 @@ GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
 # makefile
 .DEFAULT_GOAL := postgres
 # environment
-SYSTEMD_EXEC_PID = 2265
+SYSTEMD_EXEC_PID = 2238
 # environment
 DISPLAY = :1
 # environment
@@ -187,11 +200,11 @@ GTK_MODULES = gail:atk-bridge
 # default
 MAKE_VERSION := 4.3
 # environment
-MANAGERPID = 1995
+MANAGERPID = 1893
 # environment
 LC_MEASUREMENT = ar_DZ.UTF-8
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 101206
+GIO_LAUNCHED_DESKTOP_FILE_PID = 6298
 # environment
 PAGER = less
 # environment
@@ -203,7 +216,7 @@ XDG_RUNTIME_DIR = /run/user/1000
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-JOURNAL_STREAM = 8:35397
+JOURNAL_STREAM = 8:32423
 # environment
 GOMODCACHE = /home/stam/go/pkg/mod
 # environment
@@ -222,6 +235,7 @@ VSCODE_IPC_HOOK = /run/user/1000/vscode-379543b2-1.67.2-main.sock
 IM_CONFIG_PHASE = 1
 # environment
 GOPROXY = https://proxy.golang.org,direct
+ 
 # default
 .RECIPEPREFIX := 
 # automatic
@@ -260,6 +274,7 @@ migratedown:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
+ 
 #  recipe to execute (from 'Makefile', line 11):
 	migrate -path db/migration -database "postgresql://postgres:root@localhost:5432/car_repair_shop?sslmode=disable" -verbose down
 
@@ -271,6 +286,7 @@ Makefile:
 #  Successfully updated.
 
 dropdb:
+ 
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
@@ -279,9 +295,6 @@ dropdb:
 	docker exec -it postgres14car dropdb -U postgres bank
 
 server:
- 
-make: *** No rule to make target 'all'.  Stop.
-
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
@@ -316,6 +329,7 @@ test:
 #  File does not exist.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 15):
+ 
 	go test -v -cover ./...
 
 sqlc:
@@ -332,6 +346,7 @@ postgres:
 #  File does not exist.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 2):
+ 
 	 docker run --name postgres14car -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=root -d postgres:14-alpine
 
 createdb:
@@ -361,6 +376,6 @@ createdb:
 # strcache performance: lookups = 55 / hit rate = 38%
 # hash-table stats:
 # Load=34/8192=0%, Rehash=0, Collisions=0/55=0%
-# Finished Make data base on Tue May 31 00:04:39 2022
+# Finished Make data base on Tue May 31 17:02:04 2022
 
  

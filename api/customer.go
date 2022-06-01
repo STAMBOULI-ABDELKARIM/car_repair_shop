@@ -29,8 +29,8 @@ type Response struct {
 // @Param PhoneNumber formData string true "PhoneNumber"
 // @Success 200 {object} Response
 // @Failure 400 {object} Response
-// @Failure 401 {object} Response
-// @Router /customers [get]
+// @Failure 500 {object} Response
+// @Router /customers [post]
 func (server *Server) createCustomer(ctx *gin.Context) {
 	var req createCustomerRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -51,6 +51,17 @@ func (server *Server) createCustomer(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, customer)
 }
 
+// getCustomer godoc
+// @Summary  GET Customer
+// @Description  GET  Customer by it's id
+// @Tags customer,get
+// @Accept  json
+// @Produce  json
+// @Param id query int true "id"
+// @Success 200 {object} Response
+// @Failure 400 {object} Response
+// @Failure 500 {object} Response
+// @Router /customers/{id} [get]
 type getCustomerRequest struct {
 	ID int64 `uri:"id" binding:"required"`
 }
@@ -75,6 +86,19 @@ func (server *Server) getCustomer(ctx *gin.Context) {
 
 }
 
+// listCustomers godoc
+// @Summary list all Customers
+// @Description Create GET list of all Customers
+// @Tags customer,list
+// @Accept  json
+// @Produce  json
+// @Param PageSize query int true "PageSize"
+// @Param PageID query int true "PageID"
+// @Success 200 {object} Response
+// @Success 400 {object} Response
+// @Failure 404 {object} Response
+// @Failure 500 {object} Response
+// @Router /customers [get]
 type ListCustomersRequest struct {
 	PageID   int32 `form:"page_id" binding:"required,min=1"`
 	PageSize int32 `form:"page_size" binding:"required,min=5,max=10"`
@@ -100,6 +124,18 @@ func (server *Server) listCustomers(ctx *gin.Context) {
 
 }
 
+// deleteCustomer godoc
+// @Summary DELETE a Customer
+// @Description use this api to delete a customer by it's id
+// @Tags customer,delete
+// @Accept  json
+// @Produce  json
+// @Param id query int true "id"
+// @Success 204 {object} Response
+// @Failure 400 {object} Response
+// @Failure 404 {object} Response
+// @Failure 500 {object} Response
+// @Router /customers/{id} [delete]
 type deleteCustomerRequest struct {
 	ID int64 `uri:"id" binding:"required"`
 }
@@ -124,6 +160,19 @@ func (server *Server) deleteCustomer(ctx *gin.Context) {
 
 }
 
+// updateCustomer godoc
+// @Summary update  Customer
+// @Description update a  Customer
+// @Tags customer,uodate
+// @Accept  json
+// @Produce  json
+// @Param FullName formData string true "FullName"
+// @Param PhoneNumber formData string true "PhoneNumber"
+// @Success 200 {object} Response
+// @Failure 400 {object} Response
+// @Failure 404 {object} Response
+// @Failure 500 {object} Response
+// @Router /customers/{id} [put]
 type updateCustomerRequest struct {
 	FullName    string `json:"fullName"`
 	PhoneNumber string `json:"phoneNumber"`
