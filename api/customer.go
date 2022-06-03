@@ -4,32 +4,53 @@ import (
 	"database/sql"
 	"net/http"
 	"strconv"
+	"time"
 
 	db "github.com/STAMBOULI-ABDELKARIM/car_repair_shop/db/sqlc"
 	"github.com/gin-gonic/gin"
 )
 
-type createCustomerRequest struct {
-	FullName    string `json:"fullName" binding:"required"`
-	PhoneNumber string `json:"phoneNumber" binding:"required"`
-}
-type Response struct {
-	Message string `json:"message"`
+// swagger:model CustomerResponse
+type CustomerResponse struct {
+	// The ID of a Customer
+	// example: 1 2 3 4 5
+	ID int64 `json:"id"`
+	// The Name of a Customer
+	// example: Karim Stam
+	FullName string `json:"full_name"`
+	// The PhoneNumber of a Customer
+	// example: +2131122334455
+	PhoneNumber string `json:"phone_number"`
+	// The time a Customer was created
+	// example: 2021-05-25T00:53:16.535668Z
+	CreatedAt time.Time `json:"created_at"`
 }
 
-// Paths Information
+// swagger:model createCustomerRequest
+type createCustomerRequest struct {
+	// The Name of a Customer
+	// example: Karim Stam
+	FullName string `json:"fullName" binding:"required"`
+	// The PhoneNumber for a Customer
+	// example: +2131122334455
+	PhoneNumber string `json:"phoneNumber" binding:"required"`
+}
+
+type ErrorResponse struct {
+	Error string `json:"error"`
+}
 
 // createCustomer godoc
 // @Summary Create new Customer
-// @Description Create new Customer
-// @Tags customer,create
+// @Description Create a new Customer
+// @ID create-Customer
+// @Tags Customer
 // @Accept  json
 // @Produce  json
-// @Param FullName formData string true "FullName"
-// @Param PhoneNumber formData string true "PhoneNumber"
-// @Success 200 {object} Response
-// @Failure 400 {object} Response
-// @Failure 500 {object} Response
+// @Param Body body createCustomerRequest true "The body to create a Customer"
+// @Success 200 {object} CustomerResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
 // @Router /customers [post]
 func (server *Server) createCustomer(ctx *gin.Context) {
 	var req createCustomerRequest
@@ -51,21 +72,25 @@ func (server *Server) createCustomer(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, customer)
 }
 
-// getCustomer godoc
-// @Summary  GET Customer
-// @Description  GET  Customer by it's id
-// @Tags customer,get
-// @Accept  json
-// @Produce  json
-// @Param id query int true "id"
-// @Success 200 {object} Response
-// @Failure 400 {object} Response
-// @Failure 500 {object} Response
-// @Router /customers/{id} [get]
+// swagger:model getCustomerRequest
 type getCustomerRequest struct {
+	// The id of a thing
+	// in:path
 	ID int64 `uri:"id" binding:"required"`
 }
 
+// getCustomer godoc
+// @Summary  GET Customer
+// @Description  GET  Customer by it's id
+// @Tags Customer
+// @ID get-Customer
+// @Accept  json
+// @Produce  json
+// @Param id path string true  "The id to get a Customer"
+// @Success 200 {object} CustomerResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /customers/{id} [get]
 func (server *Server) getCustomer(ctx *gin.Context) {
 	var req getCustomerRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -86,24 +111,29 @@ func (server *Server) getCustomer(ctx *gin.Context) {
 
 }
 
-// listCustomers godoc
-// @Summary list all Customers
-// @Description Create GET list of all Customers
-// @Tags customer,list
-// @Accept  json
-// @Produce  json
-// @Param PageSize query int true "PageSize"
-// @Param PageID query int true "PageID"
-// @Success 200 {object} Response
-// @Success 400 {object} Response
-// @Failure 404 {object} Response
-// @Failure 500 {object} Response
-// @Router /customers [get]
+type CustomersResponse struct {
+	Customers []CustomerResponse `json:"customers"`
+} // @name CustomersResponse
+
+// swagger:model ListCustomersRequest
 type ListCustomersRequest struct {
 	PageID   int32 `form:"page_id" binding:"required,min=1"`
 	PageSize int32 `form:"page_size" binding:"required,min=5,max=10"`
 }
 
+// listCustomers godoc
+// @Summary list all Customers
+// @Description Create GET list of all Customers
+// @Tags Customer
+// @ID list-Customer
+// @Accept  json
+// @Produce  json
+// @Param Body body ListCustomersRequest true "The body to list all Customers by pagination"
+// @Success 200 {object} CustomersResponse
+// @Success 400 {object} ErrorResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /customers [get]
 func (server *Server) listCustomers(ctx *gin.Context) {
 	var req ListCustomersRequest
 	if err := ctx.ShouldBindQuery(&req); err != nil {
@@ -124,22 +154,23 @@ func (server *Server) listCustomers(ctx *gin.Context) {
 
 }
 
-// deleteCustomer godoc
-// @Summary DELETE a Customer
-// @Description use this api to delete a customer by it's id
-// @Tags customer,delete
-// @Accept  json
-// @Produce  json
-// @Param id query int true "id"
-// @Success 204 {object} Response
-// @Failure 400 {object} Response
-// @Failure 404 {object} Response
-// @Failure 500 {object} Response
-// @Router /customers/{id} [delete]
 type deleteCustomerRequest struct {
 	ID int64 `uri:"id" binding:"required"`
 }
 
+// deleteCustomer godoc
+// @Summary DELETE a Customer
+// @Description use this api to delete a customer by it's id
+// @Tags Customer
+// @ID delete-Customer
+// @Accept  json
+// @Produce  json
+// @Param id path string true  "The id to delete a Customer"
+// @Success 204 string deleted
+// @Failure 400 {object} ErrorResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /customers/{id} [delete]
 func (server *Server) deleteCustomer(ctx *gin.Context) {
 	var req deleteCustomerRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
@@ -160,24 +191,30 @@ func (server *Server) deleteCustomer(ctx *gin.Context) {
 
 }
 
-// updateCustomer godoc
-// @Summary update  Customer
-// @Description update a  Customer
-// @Tags customer,uodate
-// @Accept  json
-// @Produce  json
-// @Param FullName formData string true "FullName"
-// @Param PhoneNumber formData string true "PhoneNumber"
-// @Success 200 {object} Response
-// @Failure 400 {object} Response
-// @Failure 404 {object} Response
-// @Failure 500 {object} Response
-// @Router /customers/{id} [put]
+// swagger:model updateCustomerRequest
 type updateCustomerRequest struct {
-	FullName    string `json:"fullName"`
+	// The Name of a Customer
+	// example: Karim Stam
+	FullName string `json:"fullName"`
+	// The PhoneNumber for a Customer
+	// example: +2131122334455
 	PhoneNumber string `json:"phoneNumber"`
 }
 
+// updateCustomer godoc
+// @Summary update  Customer
+// @Description update a  Customer
+// @Tags Customer
+// @ID update-Customer
+// @Accept  json
+// @Produce  json
+// @Param id path string true  "The id to get a Customer"
+// @Param Body body createCustomerRequest true "The body to create a Customer"
+// @Success 200 {object} CustomersResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /customers/{id} [put]
 func (server *Server) updateCustomer(ctx *gin.Context) {
 	var req updateCustomerRequest
 	userID := ctx.Param("id")

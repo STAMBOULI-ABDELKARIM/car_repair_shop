@@ -1,4 +1,236 @@
+definitions:
+  CustomersResponse:
+    properties:
+      customers:
+        items:
+          $ref: '#/definitions/api.CustomerResponse'
+        type: array
+    type: object
+  api.CustomerResponse:
+    properties:
+      created_at:
+        description: |-
+          The time a Customer was created
+          example: 2021-05-25T00:53:16.535668Z
+        type: string
+      full_name:
+        description: |-
+          The Name of a Customer
+          example: Karim Stam
+        type: string
+      id:
+        description: |-
+          The ID of a Customer
+          example: 1 2 3 4 5
+        type: integer
+      phone_number:
+        description: |-
+          The PhoneNumber of a Customer
+          example: +2131122334455
+        type: string
+    type: object
+  api.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  api.ListCustomersRequest:
+    properties:
+      pageID:
+        minimum: 1
+        type: integer
+      pageSize:
+        maximum: 10
+        minimum: 5
+        type: integer
+    required:
+    - pageID
+    - pageSize
+    type: object
+  api.createCustomerRequest:
+    properties:
+      fullName:
+        description: |-
+          The Name of a Customer
+          example: Karim Stam
+        type: string
+      phoneNumber:
+        description: |-
+          The PhoneNumber for a Customer
+          example: +2131122334455
+        type: string
+    required:
+    - fullName
+    - phoneNumber
+    type: object
 info:
   contact: {}
-paths: {}
+paths:
+  /customers:
+    get:
+      consumes:
+      - application/json
+      description: Create GET list of all Customers
+      operationId: list-Customer
+      parameters:
+      - description: The body to list all Customers by pagination
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/api.ListCustomersRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/CustomersResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: list all Customers
+      tags:
+      - Customer
+    post:
+      consumes:
+      - application/json
+      description: Create a new Customer
+      operationId: create-Customer
+      parameters:
+      - description: The body to create a Customer
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/api.createCustomerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.CustomerResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: Create new Customer
+      tags:
+      - Customer
+  /customers/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: use this api to delete a customer by it's id
+      operationId: delete-Customer
+      parameters:
+      - description: The id to delete a Customer
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: DELETE a Customer
+      tags:
+      - Customer
+    get:
+      consumes:
+      - application/json
+      description: GET  Customer by it's id
+      operationId: get-Customer
+      parameters:
+      - description: The id to get a Customer
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.CustomerResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: GET Customer
+      tags:
+      - Customer
+    put:
+      consumes:
+      - application/json
+      description: update a  Customer
+      operationId: update-Customer
+      parameters:
+      - description: The id to get a Customer
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: The body to create a Customer
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/api.createCustomerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/CustomersResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: update  Customer
+      tags:
+      - Customer
 swagger: "2.0"

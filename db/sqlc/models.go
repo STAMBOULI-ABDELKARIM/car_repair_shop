@@ -5,12 +5,111 @@
 package db
 
 import (
+	"database/sql"
 	"time"
 )
+
+type Car struct {
+	ID                int32  `json:"id"`
+	CustomerID        int32  `json:"customer_id"`
+	RegistraionNumber string `json:"registraion_number"`
+	Make              string `json:"make"`
+	Model             string `json:"model"`
+	Year              string `json:"year"`
+	Energy            string `json:"energy"`
+}
 
 type Customer struct {
 	ID          int64     `json:"id"`
 	FullName    string    `json:"full_name"`
 	PhoneNumber string    `json:"phone_number"`
 	CreatedAt   time.Time `json:"created_at"`
+}
+
+type Mechanic struct {
+	ID       int32  `json:"id"`
+	FullName string `json:"full_name"`
+}
+
+type MechanicDetail struct {
+	ID             int32 `json:"id"`
+	MechanicID     int32 `json:"mechanic_id"`
+	ServiceOrderID int32 `json:"service_order_id"`
+}
+
+type Part struct {
+	ID          int32  `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	RetailPrice string `json:"retail_price"`
+}
+
+type PartDetail struct {
+	ID             int32          `json:"id"`
+	PartID         int32          `json:"part_id"`
+	ServiceOrderID int32          `json:"service_order_id"`
+	Quantity       int32          `json:"quantity"`
+	Price          sql.NullString `json:"price"`
+}
+
+type Payment struct {
+	ID            int32          `json:"id"`
+	SaleInvoiceID int32          `json:"sale_invoice_id"`
+	Amount        sql.NullString `json:"amount"`
+	Date          sql.NullTime   `json:"date"`
+}
+
+type PurchaseDetail struct {
+	ID                int32  `json:"id"`
+	PartID            int32  `json:"part_id"`
+	PurchaseInvoiceID int32  `json:"purchase_invoice_id"`
+	Quantity          int32  `json:"quantity"`
+	Price             string `json:"price"`
+}
+
+type PurchaseInvoice struct {
+	ID         int32        `json:"id"`
+	SupplierID int32        `json:"supplier_id"`
+	Ref        string       `json:"ref"`
+	Date       sql.NullTime `json:"date"`
+}
+
+type SaleInvoice struct {
+	ID             int32        `json:"id"`
+	ServiceOrderID int32        `json:"service_order_id"`
+	Date           sql.NullTime `json:"date"`
+	Ref            string       `json:"ref"`
+}
+
+type Service struct {
+	ID             int32          `json:"id"`
+	Name           string         `json:"name"`
+	Description    string         `json:"description"`
+	EstimationTime int32          `json:"estimation_time"`
+	MinPrice       sql.NullString `json:"min_price"`
+	MaxPrice       sql.NullString `json:"max_price"`
+}
+
+type ServiceDetail struct {
+	ID             int32          `json:"id"`
+	ServiceID      int32          `json:"service_id"`
+	ServiceOrderID int32          `json:"service_order_id"`
+	Price          sql.NullString `json:"price"`
+	State          int32          `json:"state"`
+}
+
+type ServiceOrder struct {
+	ID           int32          `json:"id"`
+	CarID        int32          `json:"car_id"`
+	Description  sql.NullString `json:"description"`
+	DateReceived sql.NullTime   `json:"date_received"`
+	DateReturned sql.NullTime   `json:"date_returned"`
+	State        int32          `json:"state"`
+}
+
+type Supplier struct {
+	ID          int32          `json:"id"`
+	Name        string         `json:"name"`
+	Address     sql.NullString `json:"address"`
+	PhoneNumber string         `json:"phone_number"`
 }

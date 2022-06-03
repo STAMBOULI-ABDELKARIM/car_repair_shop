@@ -4,7 +4,7 @@ createdb:
 	docker exec -it postgres14car createdb -U postgres --username=postgres --owner=postgres car_repair_shop
 
 dropdb:
-	docker exec -it postgres14car dropdb -U postgres bank
+	docker exec -it postgres14car dropdb -U postgres car_repair_shop
 migrateup:
 	migrate -path db/migration -database "postgresql://postgres:root@localhost:5432/car_repair_shop?sslmode=disable" -verbose up
 migratedown:
